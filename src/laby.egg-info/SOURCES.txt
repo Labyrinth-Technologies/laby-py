@@ -1,0 +1,8 @@
+README.md
+setup.py
+src/laby.egg-info/PKG-INFO
+src/laby.egg-info/SOURCES.txt
+src/laby.egg-info/dependency_links.txt
+src/laby.egg-info/entry_points.txt
+src/laby.egg-info/requires.txt
+src/laby.egg-info/top_level.txt
