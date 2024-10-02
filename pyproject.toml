@@ -19,7 +19,7 @@ dependencies = [
 ]
 
 [project.scripts]
-laby = "laby.cli:main"
+laby = "main:main"
 
 [project.urls]
 Homepage = "https://github.com/Labyrinth-Technologies/laby-py"

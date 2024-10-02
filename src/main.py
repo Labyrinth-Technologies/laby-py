@@ -1,5 +1,5 @@
 import click
-from .simulations import run_simulations
+from simulations import run_simulations
 
 @click.group()
 def main():
