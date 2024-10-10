@@ -1,5 +1,7 @@
 import click
 from simulations import Simulation 
+from utils import load_config
+
 @click.group()
 def main():
     pass
@@ -13,7 +15,25 @@ def main():
 def run(simulation_agent_id, config_path, remote, api_key, project_id):
     """Run simulations"""
     click.echo("Running simulations...")
-    sim = Simulation(simulation_agent_id=simulation_agent_id, config_path=config_path, remote=remote, api_key=api_key, project_id=project_id)
+    if config_path:
+        config = load_config(config_path)
+        if "name" not in config:
+            print("name is required in the config")
+            return
+        if "endpoint_url" not in config:
+            print("endpoint_url is required in the config")
+            return
+        if "num_trials" not in config:
+            print("num_trials is required in the config")
+            return
+        if "conversation_initiator" not in config:
+            print("conversation_initiator is required in the config, must be 'adversarial_agent' or 'generative_agent'")
+            return
+
+    else:
+        config = {}
+
+    sim = Simulation(simulation_agent_id=simulation_agent_id, config=config, remote=remote, api_key=api_key, project_id=project_id)
     retval = sim.run()
     click.echo(retval)
 
