@@ -29,9 +29,19 @@ class Simulation():
             print("Error decoding JSON response from the API")
             return
 
-        self.simulation_session_id = data.get('simulation_session_id')
-        if not self.simulation_session_id:
+        simulation_session_id = data.get('simulation_session_id')
+        if not simulation_session_id:
             raise ValueError("No simulation_session_id returned from the API")
+        
+        text = ""
+        if self.config["conversation_initiator"] == "generative_agent":
+            text = "todo"
+
+        json_data = {"simulation_id": self.simulation_id, "simulation_session_id": simulation_session_id, "text": text}
+        response = requests.post(ADV_AGENT_MESSAGE_ENDPOINT, json=json_data, headers=self.headers)
+        if response.status_code != 200:
+            print(f"Error sending message to adversarial agent: HTTP {response.status_code}")
+            return
 
     def run(self):
         if not self.simulation_agent_id:
